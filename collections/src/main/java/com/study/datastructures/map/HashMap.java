@@ -3,7 +3,7 @@ package com.study.datastructures.map;
 
 import java.util.*;
 
-public class HashMap implements Map {
+public class HashMap<K, V> implements Map {
 
     private List[] buckets;
     private List[] oldBuckets;
@@ -34,22 +34,22 @@ public class HashMap implements Map {
     }
 
     @Override
-    public Object put(Object key, Object value) {
+    public V put(Object key, Object value) {
         if (countUsedBacket() >= capacity * 0.75) {
             copyMap();
         }
         return putWithoutCopy(key, value);
     }
 
-    private Object putWithoutCopy(Object key, Object value) {
+    private V putWithoutCopy(Object key, Object value) {
 
         Entry currentEntry = getEntry(key);
         if (currentEntry != null) {
             Entry oldEntry = new Entry(null, currentEntry.getValue());
-            currentEntry.setValue(value);
+            currentEntry.value = (V) value;
             return oldEntry.getValue();
         } else {
-            Entry entry = new Entry(key, value);
+            Entry entry = new Entry((K) key, (V) value);
             int index = getIndex(key);
             entry.setHashCode(key.hashCode());
             buckets[index].add(entry);
@@ -60,7 +60,7 @@ public class HashMap implements Map {
 
 
     @Override
-    public Object get(Object key) {
+    public V get(Object key) {
         return getEntry(key).getValue();
     }
 
@@ -75,7 +75,7 @@ public class HashMap implements Map {
     }
 
     @Override
-    public Object remove(Object key) {
+    public V remove(Object key) {
         Entry entry = getEntry(key);
         if (entry != null) {
             List bucket = buckets[getIndex(key)];
@@ -95,13 +95,14 @@ public class HashMap implements Map {
         int index = getIndex(key);
         int hash = key.hashCode();
 
-        if (buckets[index].isEmpty()) {
+        List<Entry> entries = buckets[index];
+        if (entries.isEmpty()) {
             return null;
         }
-        for (Object o : buckets[index]) {
-            if (((Entry) o).getHashCode() == hash) {
-                if (((Entry) o).getKey().equals(key)) {
-                    return ((Entry) o);
+        for (Entry entry : entries) {
+            if (entry.getHashCode() == hash) {
+                if (entry.getKey().equals(key)) {
+                    return entry;
                 }
             }
 
@@ -138,29 +139,29 @@ public class HashMap implements Map {
 
     private class Entry {
         private int hashCode;
-        private Object key;
-        private Object value;
+        private K key;
+        private V value;
 
-        private Entry(Object key, Object value) {
+        private Entry(K key, V value) {
             this.key = key;
             this.value = value;
         }
 
-        public Object getKey() {
+        public K getKey() {
             return key;
         }
 
-        private void setKey(Object key) {
+        private void setKey(K key) {
             this.key = key;
         }
 
-        public Object getValue() {
+        public V getValue() {
             return value;
         }
 
-        public void setValue(Object value) {
-            this.value = value;
-        }
+//        public void setValue(Object value) {
+//            this.value = value;
+//        }
 
         public int getHashCode() {
             return hashCode;

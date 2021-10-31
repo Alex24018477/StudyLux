@@ -8,10 +8,10 @@ import static org.junit.Assert.*;
 
 public class HashMapTest {
 
-    Map map = new HashMap();
+    Map<String, String> map = new HashMap();
 
     @Before
-    public void setUp() throws Exception {
+    public void setUp() {
 
         map.put("0", "Java0");
         map.put("1", "Java1");
@@ -30,8 +30,6 @@ public class HashMapTest {
         assertEquals(null, map.put("6", "Java6"));
         assertEquals("Java5", map.put("5", "Java15"));
 
-
-        map.put("4", "Alex");
         map.put("4", "Alex24");
 
         assertEquals("Alex24", map.get("4"));
@@ -64,7 +62,7 @@ public class HashMapTest {
 
     @Test
     public void testSize() {
-        Map map = new HashMap();
+        Map<String, String> map = new HashMap();
 
         assertEquals(0, map.size());
 
@@ -102,7 +100,7 @@ public class HashMapTest {
         assertFalse(map.containsKey("4"));
         assertEquals(4, map.size());
         assertEquals(null, map.remove("20"));
-        assertEquals("Java2", map.remove("2").toString());
+        assertEquals("Java2", map.remove("2"));
 
     }
 
