@@ -7,11 +7,11 @@ import static org.junit.Assert.*;
 
 public class LinkedListTest {
 
-    LinkedList linkedList;
+    LinkedList<String> linkedList;
 
     @Before
-    public void setUp() throws Exception {
-        linkedList = new LinkedList();
+    public void setUp() {
+        linkedList = new LinkedList<>();
         linkedList.add("0");
         linkedList.add("1");
         linkedList.add("2");
@@ -60,7 +60,7 @@ public class LinkedListTest {
     @Test
     public void testRemoveFirstElementWhenListHasThreeElements() {
 
-        List list = new LinkedList();
+        List list = new LinkedList<>();
         list.add("22");
         list.add("33");
         list.add("44");
@@ -110,7 +110,7 @@ public class LinkedListTest {
 
     @Test
     public void testIsEmpty() {
-        linkedList = new LinkedList();
+        linkedList = new LinkedList<>();
 
         assertTrue(linkedList.isEmpty());
         linkedList.add("1");
@@ -149,7 +149,7 @@ public class LinkedListTest {
 
     @Test
     public void testToString() {
-        linkedList = new LinkedList();
+        linkedList = new LinkedList<>();
         linkedList.add("1");
         linkedList.add("2");
         linkedList.add("3");

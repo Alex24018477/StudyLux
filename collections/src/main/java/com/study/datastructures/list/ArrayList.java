@@ -4,18 +4,18 @@ package com.study.datastructures.list;
 import java.util.Arrays;
 import java.util.StringJoiner;
 
-public class ArrayList implements List {
+public class ArrayList<V> implements List {
     private static final int DEFAULT_CAPACITY = 10;
 
-    private Object[] array;
+    private V[] array;
     private int size;
 
     public ArrayList() {
-        array = new Object[DEFAULT_CAPACITY];
+        array = (V[]) new Object[DEFAULT_CAPACITY];
     }
 
     public ArrayList(int capacity) {
-        this.array = new Object[capacity];
+        this.array = (V[]) new Object[capacity];
     }
 
     public void add(Object value) {
@@ -24,27 +24,27 @@ public class ArrayList implements List {
 
     public void add(Object value, int index) {
         if (index < 0 || index > size) {
-            throw new IndexOutOfBoundsException("Index should be between '0' and " + size );
+            throw new IndexOutOfBoundsException("Index should be between '0' and " + size);
         }
         if (size == array.length) {
-            Object[] arrayCopy = new Object[array.length + array.length / 2];
+            V[] arrayCopy = (V[]) new Object[array.length + array.length / 2];
             System.arraycopy(array, 0, arrayCopy, 0, size);
             array = arrayCopy;
         }
-        Object[] arrayCopy = new Object[array.length];
+        V[] arrayCopy = (V[]) new Object[array.length];
         System.arraycopy(array, 0, arrayCopy, 0, index);
-        arrayCopy[index] = value;
+        arrayCopy[index] = (V) value;
         System.arraycopy(array, index, arrayCopy, index + 1, size - index);
         array = arrayCopy;
         size++;
     }
 
-    public Object remove(int index) {
+    public V remove(int index) {
         if (index < 0 || index >= size) {
             throw new IndexOutOfBoundsException("Index should be between '0' and " + size);
         }
-        Object result = array[index];
-        Object[] arrayCopy = new Object[array.length-1];
+        V result = array[index];
+        V[] arrayCopy = (V[]) new Object[array.length - 1];
         if (index == 0) {
             System.arraycopy(array, 1, arrayCopy, 0, size - 1);
             array = arrayCopy;
@@ -67,17 +67,17 @@ public class ArrayList implements List {
         return array[index];
     }
 
-    public Object set(Object value, int index) {
+    public V set(Object value, int index) {
         if (index < 0 || index > size) {
             throw new IndexOutOfBoundsException("Index should be between '0' and " + size);
         }
         Object result = array[index];
-        array[index] = value;
-        return result;
+        array[index] = (V) value;
+        return (V) result;
     }
 
     public void clear() {
-        array = new Object[size];
+        array = (V[]) new Object[size];
         size = 0;
     }
 
@@ -146,7 +146,7 @@ public class ArrayList implements List {
         return null;
     }
 
-    private class ArrayListIterator implements Iterator{
+    private class ArrayListIterator implements Iterator {
 
         private ArrayList arrayList;
         private int index;
@@ -157,7 +157,7 @@ public class ArrayList implements List {
 
         @Override
         public boolean hasNext() {
-            return arrayList.get(index+1) != null;
+            return arrayList.get(index + 1) != null;
         }
 
         @Override

@@ -2,7 +2,7 @@ package com.study.datastructures.list;
 
 import java.util.StringJoiner;
 
-public class LinkedList implements List {
+public class LinkedList<V> implements List {
 
     private Node head;
     private Node tail;
@@ -21,17 +21,17 @@ public class LinkedList implements List {
         }
         Node ourNode = null;
         if (size == 0) {
-            head = tail = new Node(value);
+            head = tail = new Node((V) value);
         } else if (index == size) {
 
             ourNode = head;
             while (ourNode.getNext() != null) {
                 ourNode = ourNode.getNext();
             }
-            ourNode.setNext(new Node(value, tail, null));
+            ourNode.setNext(new Node((V) value, tail, null));
             tail = ourNode.getNext();
         } else {
-            Node node = new Node(value, getNode(index - 1), this.getNode(index));
+            Node node = new Node((V) value, getNode(index - 1), this.getNode(index));
             if (index < size / 2) {
                 getNode(index).setPrev(node);
                 getNode(index - 1).setNext(node);
@@ -44,11 +44,11 @@ public class LinkedList implements List {
     }
 
 
-    public Object remove(int index) {
+    public V remove(int index) {
         if (index < 0 || index >= size) {
             throw new IndexOutOfBoundsException("Index should be between '0' and " + size + " (including)");
         }
-        Object value = get(index);
+        V value = (V) get(index);
         if (index == 0) {
             getNode(1).setPrev(null);
             head = getNode(1);
@@ -75,17 +75,17 @@ public class LinkedList implements List {
     }
 
 
-    public Object get(int index) {
-        return getNode(index).getValue();
+    public V get(int index) {
+        return (V) getNode(index).getValue();
     }
 
 
-    public Object set(Object value, int index) {
+    public V set(Object value, int index) {
         if (index < 0 || index >= size) {
             throw new IndexOutOfBoundsException("Index should be between '0' and " + size + " (including)");
         }
-        Object oldValue = getNode(index).getValue();
-        getNode(index).setValue(value);
+        V oldValue = (V) getNode(index).getValue();
+        getNode(index).setValue((V) value);
         return oldValue;
     }
 
@@ -215,16 +215,16 @@ public class LinkedList implements List {
     }
 
     private class Node {
-        private Object value;
+        private V value;
 
         private Node prev;
         private Node next;
 
-        public Node(Object value) {
+        public Node(V value) {
             this.value = value;
         }
 
-        public Node(Object value, Node prev, Node next) {
+        public Node(V value, Node prev, Node next) {
             this.value = value;
             this.prev = prev;
             this.next = next;
@@ -235,7 +235,7 @@ public class LinkedList implements List {
             return value;
         }
 
-        public void setValue(Object value) {
+        public void setValue(V value) {
             this.value = value;
         }
 
@@ -279,7 +279,7 @@ public class LinkedList implements List {
         }
 
         @Override
-        public Object next() {
+        public V next() {
             return null;
         }
     }

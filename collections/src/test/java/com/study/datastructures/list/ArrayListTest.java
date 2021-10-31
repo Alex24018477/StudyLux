@@ -7,11 +7,11 @@ import static org.junit.Assert.*;
 
 public class ArrayListTest {
 
-    ArrayList arrayList;
+    List<String> arrayList;
 
     @Before
-    public void setUp() throws Exception {
-        arrayList = new ArrayList();
+    public void setUp() {
+        arrayList = new ArrayList<>();
         arrayList.add("0");
         arrayList.add("1");
         arrayList.add("2");
@@ -128,7 +128,7 @@ public class ArrayListTest {
 
     @Test
     public void testIsEmpty() {
-        arrayList = new ArrayList();
+        arrayList = new ArrayList<>();
 
         assertTrue(arrayList.isEmpty());
         arrayList.add("1");
@@ -161,7 +161,7 @@ public class ArrayListTest {
 
     @Test
     public void testToString() {
-        arrayList = new ArrayList();
+        arrayList = new ArrayList<>();
         arrayList.add("1");
         arrayList.add("2");
         arrayList.add("3");
@@ -172,10 +172,10 @@ public class ArrayListTest {
 
     @Test
     public void testToStringWhenAddOtherType() {
-        arrayList = new ArrayList();
-        arrayList.add(1);
+        arrayList = new ArrayList<>();
+        arrayList.add("1");
         arrayList.add(null);
-        arrayList.add(3);
+        arrayList.add("3");
 
 
         assertEquals("[1, null, 3]", arrayList.toString());
