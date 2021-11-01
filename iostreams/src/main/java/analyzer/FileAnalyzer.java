@@ -33,15 +33,6 @@ public class FileAnalyzer {
         this.word = word;
     }
 
-//    public String getTextFromFile() {
-//        return textFromFile;
-//    }
-
-    //    public String readFromFile(){
-//        return "";
-//    }
-
-
     public String readFile(String filePath) throws IOException {
         File file = new File(filePath);
         BufferedReader bufferedReader = new BufferedReader(new FileReader(file));
@@ -50,14 +41,6 @@ public class FileAnalyzer {
         while ((string = bufferedReader.readLine()) != null){
             sb.append(string);
         }
-//
-//        InputStream inputStream = new FileInputStream(filePath);
-//        StringBuilder sb = new StringBuilder();
-//
-//        int i;
-//        while ((i = inputStream.read()) != -1) {
-//            sb.append((char) i);
-//        }
         return sb.toString();
     }
 
@@ -104,7 +87,6 @@ public class FileAnalyzer {
 
     public static void main(String[] args) throws IOException {
         FileAnalyzer fileAnalyzer = new FileAnalyzer();
-//        System.out.println(fileAnalyzer.readFile("Test sentence.txt"));
         for (String string: fileAnalyzer.findAllSentences("Test sentence.txt")){
             System.out.println(string);
         }

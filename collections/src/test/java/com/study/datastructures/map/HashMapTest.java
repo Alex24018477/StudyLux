@@ -75,6 +75,15 @@ public class HashMapTest {
 
         assertEquals(2, map.size());
 
+        map.put("6", "Java6");
+        map.put("7", "Java7");
+        map.put("8", "Java8");
+        map.put("9", "Java9");
+        map.put("10", "Java10");
+
+        assertEquals(7, map.size());
+
+
     }
 
     @Test
