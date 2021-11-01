@@ -179,10 +179,10 @@ public class LinkedList<V> implements List {
 
     }
 
-    @Override
-    public Iterator getIterator() {
-        return new LinkedListIterator();
-    }
+//    @Override
+//    public Iterator iterator() {
+//        return new LinkedListIterator();
+//    }
 
     public Node getNode(int index) {
         if (index < 0 || index >= size) {
@@ -231,7 +231,7 @@ public class LinkedList<V> implements List {
         }
 
 
-        public Object getValue() {
+        public V getValue() {
             return value;
         }
 
@@ -270,17 +270,28 @@ public class LinkedList<V> implements List {
         }
     }
 
-    private class LinkedListIterator implements Iterator {
+//    private class LinkedListIterator implements Iterator {
 
-
-        @Override
-        public boolean hasNext() {
-            return false;
-        }
-
-        @Override
-        public V next() {
-            return null;
-        }
-    }
+//        private int current;
+//
+//
+//
+//        @Override
+//        public boolean hasNext() {
+//            return current < size;
+//        }
+//
+//
+//        public boolean hasPrevious() {
+//            return false;
+//        }
+//
+//        @Override
+//        public V next() {
+//            if (hasNext()){
+//                return
+//            }
+//            return null;
+//        }
+//    }
 }

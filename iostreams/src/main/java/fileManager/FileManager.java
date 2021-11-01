@@ -6,40 +6,45 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 
 public class FileManager {
-    private static int countFiles;
-    private static int countDirs;
 
     // public static int countFiles(String path) - принимает путь к папке,
 // возвращает количество файлов в папке и всех подпапках по пути
     public static int countFiles(String path) {
+        int count = 0;
         File file = new File(path);
         if (file.isDirectory()) {
             File[] files = file.listFiles();
-            for (File file1 : files) {
-                if (file1.isFile()) {
-                    countFiles++;
+            for (File innerFile : files) {
+                if (innerFile.isFile()) {
+                    count++;
                 } else {
-                    countFiles(file1.getPath());
+                    String innerFilePath = innerFile.getAbsolutePath();
+                    count += countFiles(innerFile.getPath());
+
                 }
             }
         }
-        return countFiles;
+        return count;
     }
 
     // public static int countDirs(String path) - принимает путь к папке,
 // возвращает количество папок в папке и всех подпапках по пути
     public static int countDirs(String path) {
+        int count = 0;
         File file = new File(path);
         if (file.isDirectory()) {
             File[] files = file.listFiles();
-            for (File file1 : files) {
-                if (file1.isDirectory()) {
-                    countDirs++;
-                    countDirs(file1.getPath());
+            for (File innerFile : files) {
+                if (!innerFile.isDirectory()) {
+                    continue;
                 }
+                count++;
+                String innerFilePath = innerFile.getAbsolutePath();
+                count += countDirs(innerFilePath);
+
             }
         }
-        return countDirs;
+        return count;
     }
 
     //    - метод по копированию папок и файлов.
@@ -51,7 +56,7 @@ public class FileManager {
              FileOutputStream fos = new FileOutputStream(to)) {
             byte[] bufer = new byte[1024];
             int byteread = 0;
-            while ((byteread = fis.read(bufer)) > 0){
+            while ((byteread = fis.read(bufer)) > 0) {
                 fos.write(bufer, 0, byteread);
                 fos.close();
                 fis.close();

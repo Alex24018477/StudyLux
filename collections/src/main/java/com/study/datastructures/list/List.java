@@ -44,5 +44,5 @@ public interface List<V> {
     // [A, B, C]
     String toString();
 
-    Iterator getIterator();
+//    Iterator iterator();
 }

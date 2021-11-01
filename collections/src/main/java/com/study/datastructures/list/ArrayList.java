@@ -141,27 +141,24 @@ public class ArrayList<V> implements List {
         return stringJoiner.toString();
     }
 
-    @Override
-    public Iterator getIterator() {
-        return null;
+    public Iterator<V> iterator(){
+        return new ArrayListIterator();
     }
 
     private class ArrayListIterator implements Iterator {
 
-        private ArrayList arrayList;
         private int index;
-
-        public ArrayListIterator(ArrayList arrayList) {
-            this.arrayList = arrayList;
-        }
 
         @Override
         public boolean hasNext() {
-            return arrayList.get(index + 1) != null;
+            return index < size;
         }
 
         @Override
-        public Object next() {
+        public V next() {
+            if (hasNext()){
+                return (V)array[index+1];
+            }
             return null;
         }
     }

@@ -19,43 +19,37 @@ class FileManagerTest {
         fileManager = new FileManager();
         fileAnalyzer = new FileAnalyzer();
 
-        File file = new File("Directory for testing");
-        file.mkdir();
-        for (int i = 0; i < 10; i++) {
-            if (i % 2 == 0) {
-                File file1 = new File(file.getAbsolutePath() + "\\" + "Directory" + i);
-                file1.mkdir();
-            } else {
-                if (i > 5) {
-                    File file1 = new File(file.getAbsolutePath() + "\\" + "Directory4" + "\\" + "file" + i);
-                    file1.createNewFile();
-                } else {
-                    File file1 = new File(file.getAbsolutePath() + "\\" + "Directory0" + "\\" + "file" + i);
-                    file1.createNewFile();
-                }
+        new File("Directory for testing").mkdir();
+        new File("Directory for testing\\Dir0").mkdir();
+        new File("Directory for testing\\Dir2").mkdir();
+        new File("Directory for testing\\Dir4").mkdir();
+        new File("Directory for testing\\Dir4\\Dir6").mkdir();
+        new File("Directory for testing\\Dir8").mkdir();
+        new File("Directory for testing\\Dir4\\Dir6\\file1").createNewFile();
+        new File("Directory for testing\\file3").createNewFile();
+        new File("Directory for testing\\Dir4\\file5").createNewFile();
+        new File("Directory for testing\\file7").createNewFile();
+        new File("Directory for testing\\Copied file").createNewFile();
 
-
-            }
-        }
     }
 
     @AfterEach
     void tearDown() {
         File file = new File("Directory for testing");
 
-        if (file.isDirectory()) {
-            File[] files = file.listFiles();
-            for (File file1 : files) {
-                if (file1.isDirectory()) {
-                    File[] files2 = file1.listFiles();
-                    for (File file3 : files2) {
-                        file3.delete();
-                    }
-                }
-                file1.delete();
-            }
-        }
-        file.delete();
+        new File("Directory for testing\\Dir4\\Dir6\\file1").delete();
+        new File("Directory for testing\\Copied file").delete();
+        new File("Directory for testing\\file3").delete();
+        new File("Directory for testing\\Dir4\\file5").delete();
+        new File("Directory for testing\\file7").delete();
+        new File("Directory for testing\\Copied file").delete();
+        new File("Directory for testing\\Dir4\\Dir6").delete();
+        new File("Directory for testing\\Dir0").delete();
+        new File("Directory for testing\\Dir2").delete();
+        new File("Directory for testing\\Dir4").delete();
+        new File("Directory for testing\\Dir8").delete();
+        new File("Directory for testing").delete();
+
     }
 
 
@@ -71,14 +65,12 @@ class FileManagerTest {
 
     @Test
     void copy() throws IOException {
-        FileManager.copy("Test word.txt", "Copied file");
-        FileAnalyzer fileAnalyzer = new FileAnalyzer();
+        FileManager.copy("Test word.txt", "Directory for testing\\Copied file");
+        fileAnalyzer = new FileAnalyzer();
         String expected = fileAnalyzer.readFile("Test word.txt");
-        String actual = fileAnalyzer.readFile("Copied file");
+        String actual = fileAnalyzer.readFile("Directory for testing\\Copied file");
 
-        assertEquals(expected,actual);
+        assertEquals(expected, actual);
 
     }
-
-
 }

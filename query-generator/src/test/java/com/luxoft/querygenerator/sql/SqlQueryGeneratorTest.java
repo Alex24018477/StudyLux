@@ -33,7 +33,7 @@ class SqlQueryGeneratorTest {
 
     @Test
     void insert() throws IllegalAccessException {
-        Person person = new Person(1,"Alex", 10000);
+        Person person = new Person("Alex", 10000);
 
         String expected = "INSERT INTO persons (name, salary) VALUES ('Alex', '100000');";
 
@@ -46,7 +46,7 @@ class SqlQueryGeneratorTest {
 
     @Test
     void remove() {
-        Person person = new Person(10,"Alex", 10000);
+        Person person = new Person("Alex", 10000);
 
         String expected = "DELETE * FROM persons WHERE id = '10';";
 
@@ -59,7 +59,7 @@ class SqlQueryGeneratorTest {
 
     @Test
     void update() {
-        Person person = new Person(10,"Alex", 10000);
+        Person person = new Person("Alex", 10000);
 
         String expected = "DELETE * FROM persons WHERE id = '10';";
 

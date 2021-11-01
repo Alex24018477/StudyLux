@@ -1,7 +1,7 @@
 package com.study.datastructures.list;
 
-public interface Iterator {
+public interface Iterator<V> {
     boolean hasNext();
 
-    Object next();
+    V next();
 }

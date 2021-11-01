@@ -63,15 +63,9 @@ public class SqlQueryGenerator implements QueryGenerator {
 
         StringJoiner columnNames = new StringJoiner(", ", "(", ")");
         for (Field declaredField : clazz.getDeclaredFields()) {
-            if (declaredField.getType().toString().equals("int") && declaredField.getAnnotation(Id.class) != null){
+            if (declaredField.getAnnotation(Id.class) != null){
                 continue;
             }
-            //            ID++
-//            declaredField.setAccessible(true);
-//            if (declaredField.getType().toString().equals("int") && declaredField.getAnnotation(Id.class) != null) {
-//                declaredField.setInt(value, declaredField.getInt(value)+1);
-//            }
-
             Column columnAnnotation = declaredField.getAnnotation(Column.class);
             if (columnAnnotation != null) {
                 String columnNameFromAnnotation = columnAnnotation.name();
@@ -81,16 +75,22 @@ public class SqlQueryGenerator implements QueryGenerator {
                 columnNames.add(columnName);
             }
         }
-
         query.append(tableName);
         query.append(columnNames);
         query.append(" VALUES ");
-        query.append("(");
 
-        
-
-        query.append(")");
-        // SELECT id, person_name, salary from persons;
+        StringJoiner fieldVelues = new StringJoiner(", ", "(", ")");
+        for (Field declaredField : clazz.getDeclaredFields()) {
+            declaredField.setAccessible(true);
+//            if (declaredField.getAnnotatedType().equals("Id")){
+//                continue;
+//            }
+            if (declaredField.getAnnotation(Id.class).name() != null){
+                continue;
+            }
+            fieldVelues.add((CharSequence) declaredField.get(value));
+        }
+        query.append(fieldVelues.toString());
         return query.toString();
 
 
